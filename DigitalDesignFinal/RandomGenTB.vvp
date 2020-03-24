@@ -1,0 +1,80 @@
+#! /opt/local/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1_1)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 9;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x7fa555500040 .scope module, "RandomGenTB" "RandomGenTB" 2 3;
+ .timescale -9 -9;
+v0x7fa555515b20_0 .var "Clk", 0 0;
+v0x7fa555515bc0_0 .net "RandomValue", 12 0, L_0x7fa555515d40;  1 drivers
+v0x7fa555515c70_0 .var "Rst", 0 0;
+S_0x7fa555505a40 .scope module, "RandomGenerator" "RandomGen" 2 13, 3 3 0, S_0x7fa555500040;
+ .timescale -9 -9;
+    .port_info 0 /INPUT 1 "Clk"
+    .port_info 1 /INPUT 1 "Rst"
+    .port_info 2 /OUTPUT 13 "RandomValue"
+L_0x7fa555515d40 .functor BUFZ 13, v0x7fa5555158c0_0, C4<0000000000000>, C4<0000000000000>, C4<0000000000000>;
+v0x7fa5555001a0_0 .net "Clk", 0 0, v0x7fa555515b20_0;  1 drivers
+v0x7fa5555158c0_0 .var "Counter", 12 0;
+v0x7fa555515970_0 .net "RandomValue", 12 0, L_0x7fa555515d40;  alias, 1 drivers
+v0x7fa555515a30_0 .net "Rst", 0 0, v0x7fa555515c70_0;  1 drivers
+E_0x7fa555500560 .event posedge, v0x7fa5555001a0_0;
+    .scope S_0x7fa555505a40;
+T_0 ;
+    %pushi/vec4 1000, 0, 13;
+    %store/vec4 v0x7fa5555158c0_0, 0, 13;
+    %end;
+    .thread T_0;
+    .scope S_0x7fa555505a40;
+T_1 ;
+    %wait E_0x7fa555500560;
+    %load/vec4 v0x7fa555515a30_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %pushi/vec4 1000, 0, 13;
+    %assign/vec4 v0x7fa5555158c0_0, 0;
+T_1.0 ;
+    %pushi/vec4 3000, 0, 32;
+    %load/vec4 v0x7fa5555158c0_0;
+    %pad/u 32;
+    %cmp/u;
+    %jmp/0xz  T_1.2, 5;
+    %pushi/vec4 1000, 0, 13;
+    %assign/vec4 v0x7fa5555158c0_0, 0;
+T_1.2 ;
+    %load/vec4 v0x7fa5555158c0_0;
+    %pushi/vec4 1, 0, 13;
+    %add;
+    %store/vec4 v0x7fa5555158c0_0, 0, 13;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x7fa555500040;
+T_2 ;
+    %delay 1, 0;
+    %load/vec4 v0x7fa555515b20_0;
+    %nor/r;
+    %assign/vec4 v0x7fa555515b20_0, 0;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_0x7fa555500040;
+T_3 ;
+    %vpi_call 2 16 "$dumpfile", "RandomGenTB.vcd" {0 0 0};
+    %vpi_call 2 17 "$dumpvars" {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x7fa555515b20_0, 0;
+    %pushi/vec4 1, 0, 1;
+    %assign/vec4 v0x7fa555515c70_0, 0;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0x7fa555515c70_0, 0;
+    %end;
+    .thread T_3;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "RandomGenTB.v";
+    "RandomGen.v";

@@ -1,0 +1,4 @@
+Steps:
+1. iverilog -o example_3_1.vvp example_3_1_tb.v example
+2. vvp example_3_1.vvp
+3. open -a Scansion example_3_1.vcd
