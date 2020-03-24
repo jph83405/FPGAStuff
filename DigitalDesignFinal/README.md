@@ -1,0 +1,1 @@
+LCD code not written by me. Code serves to implement a reaction timer on a basys 2 dev board. User presses a button (debounced) and FPGA monitors reaction time using divided sys clock (50 MHz).Reaction time is displayed on LCD.
